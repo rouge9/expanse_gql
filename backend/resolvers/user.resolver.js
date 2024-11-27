@@ -12,5 +12,4 @@ const userResolver = {
 
   Mutation: {},
 };
-
 export default userResolver;
