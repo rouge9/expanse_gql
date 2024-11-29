@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GET_AUTHENTICATED_USER = gql`
+export const GET_AUTHENTICATED_USER = gql`
   query GetAuthenticatedUser {
     authUser {
       _id
@@ -12,4 +12,24 @@ const GET_AUTHENTICATED_USER = gql`
   }
 `;
 
-export { GET_AUTHENTICATED_USER };
+export const GET_USER_AND_TRANSACTIONS = gql`
+  query GetUserAndTransactions($userId: ID!) {
+    user(userId: $userId) {
+      _id
+      username
+      name
+      gender
+      profilePicture
+      transactions {
+        _id
+        userId
+        description
+        paymentType
+        category
+        amount
+        location
+        date
+      }
+    }
+  }
+`;

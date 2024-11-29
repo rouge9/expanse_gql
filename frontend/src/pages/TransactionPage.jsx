@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { GET_TRANSACTION } from "../graphql/queries/transaction.query";
 import { useMutation, useQuery } from "@apollo/client";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UPDATE_TRANSACTION } from "../graphql/mutations/transcation.mutation";
 import toast from "react-hot-toast";
 import TransactionFormSkeleton from "../componets/skeletons/TransactionFormSkeleton";
 
 const TransactionPage = () => {
   const id = useParams().id;
-  const { data } = useQuery(GET_TRANSACTION, {
+  const { data, loading } = useQuery(GET_TRANSACTION, {
     variables: { transactionId: id },
   });
 
@@ -21,12 +21,15 @@ const TransactionPage = () => {
     date: data?.transaction.date || "",
   });
 
-  const [upadateTransaction, { loading: updateLoading }] =
-    useMutation(UPDATE_TRANSACTION);
+  const [upadateTransaction, { loading: updateLoading }] = useMutation(
+    UPDATE_TRANSACTION,
+    {
+      refetchQueries: ["GET_TRANSACTIONS", "GetTransactionStatistics"],
+    }
+  );
   const amount = parseFloat(formData.amount);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await upadateTransaction({
         variables: {
@@ -38,7 +41,7 @@ const TransactionPage = () => {
         },
       });
       toast.success("Transaction updated successfully");
-      return <Navigate to="/" />;
+      window.location.href = "/";
     } catch (error) {
       toast.error(error.message);
     }
@@ -65,7 +68,7 @@ const TransactionPage = () => {
     }
   }, [data]);
 
-  if (updateLoading) return <TransactionFormSkeleton />;
+  if (updateLoading || loading) return <TransactionFormSkeleton />;
 
   return (
     <div className="h-screen max-w-4xl mx-auto flex flex-col items-center">

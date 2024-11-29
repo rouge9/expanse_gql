@@ -17,10 +17,23 @@ const categoryColorMap = {
   // Add more categories and corresponding color classes as needed
 };
 
-const Card = ({ category, paymentType, amount, location, date, _id }) => {
+const Card = ({
+  category,
+  paymentType,
+  amount,
+  location,
+  date,
+  _id,
+  description,
+  authUser,
+}) => {
   const cardClass = categoryColorMap[category];
   const [deleteTransaction, { loading }] = useMutation(DELETE_TRANSACTION, {
-    refetchQueries: ["GetTransactions"],
+    refetchQueries: [
+      "GetTransactions",
+      "GetTransactionStatistics",
+      "GetUserAndTransactions",
+    ],
   });
 
   const handleDelete = async () => {
@@ -53,11 +66,13 @@ const Card = ({ category, paymentType, amount, location, date, _id }) => {
         </div>
         <p className="text-white flex items-center gap-1">
           <BsCardText />
-          Description: {category}
+          Description:{" "}
+          {description.charAt(0).toUpperCase() + description.slice(1)}
         </p>
         <p className="text-white flex items-center gap-1">
           <MdOutlinePayments />
-          Payment Type: {paymentType}
+          Payment Type:{" "}
+          {paymentType.charAt(0).toUpperCase() + paymentType.slice(1)}
         </p>
         <p className="text-white flex items-center gap-1">
           <FaSackDollar />
@@ -70,7 +85,7 @@ const Card = ({ category, paymentType, amount, location, date, _id }) => {
         <div className="flex justify-between items-center">
           <p className="text-xs text-black font-bold">{formatDate(date)}</p>
           <img
-            src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+            src={authUser?.profilePicture}
             className="h-8 w-8 border rounded-full"
             alt=""
           />

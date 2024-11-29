@@ -18,7 +18,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={authenticatedUser ? <HomePage /> : <Navigate to="/login" />}
+          element={
+            authenticatedUser ? (
+              <HomePage profilePicture={authenticatedUser?.profilePicture} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/login"
