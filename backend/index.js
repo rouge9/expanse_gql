@@ -4,6 +4,7 @@ import cors from "cors";
 import passport from "passport";
 import session from "express-session";
 import connectMongo from "connect-mongodb-session";
+import path from "path";
 
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
@@ -16,10 +17,12 @@ import mergedTypeDefs from "./typeDefs/index.js";
 import { connectDB } from "./db/connectDB.js";
 import dotenv from "dotenv";
 import { configurePassport } from "./passport/passport.config.js";
-import path from "path";
+import job from "./cron.js";
 
 dotenv.config();
 configurePassport();
+
+job.start();
 
 const __dirname = path.resolve();
 const app = express();
