@@ -3,7 +3,6 @@ import https from "https";
 
 const URL = "https://expanse-gql.onrender.com";
 const URL2 = "https://innogen-ql64.onrender.com";
-// const URL3 = "https://test-x8n2.onrender.com/"
 
 const job = new cron.CronJob("*/14 * * * *", function () {
   https
@@ -29,18 +28,6 @@ const job = new cron.CronJob("*/14 * * * *", function () {
     .on("error", (e) => {
       console.error("Error while sending request", e);
     });
-  
-//    https
-//     .get(URL3, (res) => {
-//       if (res.statusCode === 200) {
-//         console.log("GET request sent successfully");
-//       } else {
-//         console.log("GET request failed", res.statusCode);
-//       }
-//     })
-//     .on("error", (e) => {
-//       console.error("Error while sending request", e);
-//     });
 });
 
 export default job;
