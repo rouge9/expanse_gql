@@ -1,22 +1,22 @@
 import cron from "cron";
 import https from "https";
 
-const URL = "https://expanse-gql.onrender.com";
+// const URL = "https://expanse-gql.onrender.com";
 const URL2 = "https://innogen-ql64.onrender.com";
-const URL3 = "https://test-gu6z.onrender.com";
+// const URL3 = "https://test-gu6z.onrender.com";
 
-const job = new cron.CronJob("*/14 * * * *", function () {
-  https
-    .get(URL, (res) => {
-      if (res.statusCode === 200) {
-        console.log("GET request sent successfully");
-      } else {
-        console.log("GET request failed", res.statusCode);
-      }
-    })
-    .on("error", (e) => {
-      console.error("Error while sending request", e);
-    });
+const job = new cron.CronJob("*/10 * * * *", function () {
+  // https
+  //   .get(URL, (res) => {
+  //     if (res.statusCode === 200) {
+  //       console.log("GET request sent successfully");
+  //     } else {
+  //       console.log("GET request failed", res.statusCode);
+  //     }
+  //   })
+  //   .on("error", (e) => {
+  //     console.error("Error while sending request", e);
+  //   });
 
   https
     .get(URL2, (res) => {
@@ -30,18 +30,18 @@ const job = new cron.CronJob("*/14 * * * *", function () {
       console.error("Error while sending request", e);
     });
 
-  https
-    .get(URL3, (res) => {
-      if (res.statusCode === 200) {
-        console.log("GET request sent successfully");
-      } else {
-        console.log("GET request failed", res.statusCode);
-      }
-    })
-    .on("error", (e) => {
-      console.error("Error while sending request", e);
-    });
-});
+//   https
+//     .get(URL3, (res) => {
+//       if (res.statusCode === 200) {
+//         console.log("GET request sent successfully");
+//       } else {
+//         console.log("GET request failed", res.statusCode);
+//       }
+//     })
+//     .on("error", (e) => {
+//       console.error("Error while sending request", e);
+//     });
+// });
 
 export default job;
 
