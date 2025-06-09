@@ -40,8 +40,8 @@ const job = new cron.CronJob("*/10 * * * *", function () {
 //     })
 //     .on("error", (e) => {
 //       console.error("Error while sending request", e);
-//     });
-// });
+    // });
+});
 
 export default job;
 
